@@ -6,6 +6,9 @@ pipeline {
                 echo "Building.."
                 sh '''
                 echo "doing build stuff.."
+                sudo apt install nodejs@latest
+                npm install 
+                node server.js
                 '''
             }
         }
