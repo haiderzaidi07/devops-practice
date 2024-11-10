@@ -21,11 +21,9 @@ jobs:
           echo "Extracted issue number: $issue_number"  # Print the issue number to the console
     
       - name: create pull request
-        run: |
-          echo "${{ secrets.GH_PAT }}
-          gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main' --body 'Created by Github action'
+        run: gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main' --body 'Created by Github action'
         env:
-            GH_PAT: ${{ secrets.GH_PAT }}
+            GH_PAT: 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
         
       # - name: Create Pull Request
       #   run: |
