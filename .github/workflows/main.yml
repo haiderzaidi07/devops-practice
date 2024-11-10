@@ -22,7 +22,6 @@ jobs:
     
       - name: create pull request
         run: |
-          gh
           echo "${{ secrets.GH_PAT }}
           gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main' --body 'Created by Github action'
         env:
