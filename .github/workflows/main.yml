@@ -21,11 +21,6 @@ jobs:
           echo "Extracted issue number: $issue_number"  # Print the issue number to the console
     
       - name: create pull request
-        run: gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main' --body 'Created by Github action'
+        run: gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main 2' --body 'Created by Github action' --label "automated"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-      # - name: Create Pull Request
-      #   run: |
-      #     # The base and head branches can be adjusted as needed
-      #     gh pr create --title "Automated PR: $(date +"%Y-%m-%d")" --reviewer haiderzaidi07 --label "automated"
