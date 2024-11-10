@@ -15,20 +15,17 @@ jobs:
       - name: Extract issue number from branch name
         id: extract_issue
         run: |
-          echo "Branch name is: ${{ github.ref_name }}"
-          # Extract the issue number from the branch name (e.g., "issue#123")
-          issue_number=$(echo "${{ github.ref_name }}" | sed 's/[^0-9]*//g')
-          echo "Issue number is: $issue_number"
-          echo "::set-output name=issue_number::$issue_number"
+          # Extract issue number from branch name (e.g., "issue#16" -> "16")
+          issue_number=$(echo "${GITHUB_REF_NAME}" | sed 's/[^0-9]*//g')
+          echo "issue_number=$issue_number" >> $GITHUB_ENV  # Set the issue number as an environment variable
+          echo "Extracted issue number: $issue_number"  # Print the issue number to the console
     
-          
-      # - name: Create a pull request
-      #   uses: peter-evans/create-pull-request@v5
-      #   with:
-      #     token: ${{ secrets.GH_PAT }} # Use the personal access token secret
-      #     commit-message: "Auto-create PR for branch ${{ github.ref_name }}"
-      #     branch: ${{ github.ref_name }}  # The branch where the push event occurred
-      #     base: main  # Target branch
-      #     title: "Auto PR to main from ${{ github.ref_name }}"
-      #     body: "This is an automated PR created from the branch ${{ github.ref_name }}."
-      #     draft: false
+      - name: Set up GitHub CLI
+        run: |
+          sudo apt-get install gh
+          gh auth login --with-token <<< "${{ secrets.PAT }}"
+        
+      - name: Create Pull Request
+        run: |
+          # The base and head branches can be adjusted as needed
+          gh pr create --title "Automated PR: $(date +"%Y-%m-%d")" --body "This is an automated PR." --base main --head ${{ github.ref_name }} --reviewer haiderzaidi07 --label "automated"
