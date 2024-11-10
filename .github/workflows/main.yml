@@ -4,11 +4,6 @@ on:
   push:
     branches: 'issue#*'
 
-# on:
-#   push:
-#     branches:
-#       - '<branch-name>'  # Replace with your named branch or use pattern like 'feature/*'
-
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
@@ -17,11 +12,16 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Hello World
-        run: echo "Hello World"
+      - name: Extract issue number from branch name
+        id: extract_issue
+        run: |
+          echo "Branch name is: ${{ github.ref_name }}"
+          # Extract the issue number from the branch name (e.g., "issue#123")
+          issue_number=$(echo "${{ github.ref_name }}" | sed 's/[^0-9]*//g')
+          echo "Issue number is: $issue_number"
+          echo "::set-output name=issue_number::$issue_number"
     
-      
-
+          
       # - name: Create a pull request
       #   uses: peter-evans/create-pull-request@v5
       #   with:
