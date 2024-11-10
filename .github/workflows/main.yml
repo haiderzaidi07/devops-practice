@@ -2,7 +2,7 @@ name: Auto PR to main
 
 on: 
   push:
-    branches: temp
+    branches: 'issue#*'
 
 # on:
 #   push:
