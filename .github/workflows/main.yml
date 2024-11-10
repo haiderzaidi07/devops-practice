@@ -1,0 +1,34 @@
+name: Auto PR to main
+
+on: 
+  push:
+    branches: temp
+
+# on:
+#   push:
+#     branches:
+#       - '<branch-name>'  # Replace with your named branch or use pattern like 'feature/*'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Hello World
+        run: echo "Hello World"
+    
+      
+
+      # - name: Create a pull request
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     token: ${{ secrets.GH_PAT }} # Use the personal access token secret
+      #     commit-message: "Auto-create PR for branch ${{ github.ref_name }}"
+      #     branch: ${{ github.ref_name }}  # The branch where the push event occurred
+      #     base: main  # Target branch
+      #     title: "Auto PR to main from ${{ github.ref_name }}"
+      #     body: "This is an automated PR created from the branch ${{ github.ref_name }}."
+      #     draft: false
