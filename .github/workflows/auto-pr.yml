@@ -14,7 +14,6 @@ jobs:
 
       - name: Extract issue number from branch name
         run: |
-          # Extract issue number from branch name (e.g., "issue#16" -> "16")
           issue_number=$(echo "${GITHUB_REF_NAME}" | sed 's/[^0-9]*//g')
           echo "issue_number=$issue_number" >> $GITHUB_ENV  # Set the issue number as an environment variable
           echo "Extracted issue number: $issue_number"
@@ -22,7 +21,7 @@ jobs:
       - name: create pull request
         run: |
             gh pr create \
-              -B main \
+              -B temp \
               -H ${{ github.ref_name }} \
               --title "Auto PR from ${{ github.ref_name }} into main" \
               --body "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml solving issue ${{ env.issue_number }}" \
@@ -32,10 +31,3 @@ jobs:
                 
 # Multi line body
 # Reference issue number in body
-# Use temp as base branch
-# Change file name
-# "$(cat <<EOF
-# - Branch: ${{ github.ref_name 
-# - Purpose: Merging feature or bugfix into the main branch.
-# Please review and merge the changes.
-# EOF
