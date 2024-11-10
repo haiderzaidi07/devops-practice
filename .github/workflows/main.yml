@@ -27,8 +27,8 @@ jobs:
               --title "Auto PR from ${{ github.ref_name }} into main" \
               --body "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml solving issue ${{ env.issue_number }}" \
               --label "automated"
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 
 # Multi line body
 # Reference issue number in body
