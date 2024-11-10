@@ -32,7 +32,8 @@ jobs:
                 - Purpose: Merging feature or bugfix into the main branch.
 
                 Please review and merge the changes.
-                EOF)"
+                EOF
+                )"
               --label "automated"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
