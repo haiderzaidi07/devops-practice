@@ -23,9 +23,9 @@ jobs:
       - name: create pull request
         run: gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main' --body 'Created by Github action'
         env:
-            GH_PAT: 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
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       # - name: Create Pull Request
       #   run: |
       #     # The base and head branches can be adjusted as needed
-      #     gh pr create --title "Automated PR: $(date +"%Y-%m-%d")" --body "This is an automated PR." --base main --head ${{ github.ref_name }} --reviewer haiderzaidi07 --label "automated"
+      #     gh pr create --title "Automated PR: $(date +"%Y-%m-%d")" --reviewer haiderzaidi07 --label "automated"
