@@ -20,12 +20,12 @@ jobs:
           echo "issue_number=$issue_number" >> $GITHUB_ENV  # Set the issue number as an environment variable
           echo "Extracted issue number: $issue_number"  # Print the issue number to the console
     
-      - name: Set up GitHub CLI
-        run: |
-          sudo apt-get install gh
-          gh auth login --with-token <<< "${{ secrets.PAT }}"
+      - name: create pull request
+        run: gh pr create -B main -H ${{ github.ref_name }} --title 'Merge ${{ github.ref_name }} into main' --body 'Created by Github action'
+        env:
+            GH_PAT: ${{ secrets.GH_PAT }}
         
-      - name: Create Pull Request
-        run: |
-          # The base and head branches can be adjusted as needed
-          gh pr create --title "Automated PR: $(date +"%Y-%m-%d")" --body "This is an automated PR." --base main --head ${{ github.ref_name }} --reviewer haiderzaidi07 --label "automated"
+      # - name: Create Pull Request
+      #   run: |
+      #     # The base and head branches can be adjusted as needed
+      #     gh pr create --title "Automated PR: $(date +"%Y-%m-%d")" --body "This is an automated PR." --base main --head ${{ github.ref_name }} --reviewer haiderzaidi07 --label "automated"
