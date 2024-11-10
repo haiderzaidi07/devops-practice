@@ -26,18 +26,16 @@ jobs:
               -H ${{ github.ref_name }} \
               --title "Auto PR from ${{ github.ref_name }} into main" \
               --body "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml solving issue ${{ env.issue_number }}" \
-              # "$(cat <<EOF
-
-                # - Branch: ${{ github.ref_name }}
-                # - Purpose: Merging feature or bugfix into the main branch.
-
-                # Please review and merge the changes.
-                # EOF
               --label "automated"
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                
 # Multi line body
 # Reference issue number in body
 # Use temp as base branch
 # Change file name
+# "$(cat <<EOF
+# - Branch: ${{ github.ref_name 
+# - Purpose: Merging feature or bugfix into the main branch.
+# Please review and merge the changes.
+# EOF
