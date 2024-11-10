@@ -25,7 +25,7 @@ jobs:
               -B main \
               -H ${{ github.ref_name }} \
               --title "Auto PR from ${{ github.ref_name }} into main" \
-              --body "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml solving issue ${{ env.issue_number }}"
+              --body "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml solving issue ${{ env.issue_number }}" \
               # "$(cat <<EOF
 
                 # - Branch: ${{ github.ref_name }}
