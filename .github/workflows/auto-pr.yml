@@ -42,7 +42,8 @@ jobs:
             -H $SOURCE_BRANCH_NAME \
             --title "${PR_TITLE} (Auto PR)" \
             --body-file - \
-            --label "automated"
+            --assignee $ASSIGNED_TO \
+            --label "automated" 
 
       - name: Add commit to existing PR
         if: env.pr_exists != '0'  # Only run if a PR already exists
