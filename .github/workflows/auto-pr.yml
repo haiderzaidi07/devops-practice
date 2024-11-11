@@ -47,4 +47,4 @@ jobs:
       - name: Add commit to existing PR
         if: env.pr_exists != '0'  # Only run if a PR already exists
         run: |
-          echo "A pull request already exists for this branch. Adding the new commit to the existing PR."
+          echo "A pull request already exists for this branch. Adding the new commit to the existing PR"
