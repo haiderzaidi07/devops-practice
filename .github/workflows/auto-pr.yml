@@ -19,15 +19,20 @@ jobs:
           echo "Extracted issue number: $issue_number"
     
       - name: create pull request
-        run: |
-            gh pr create \
-              -B temp \
-              -H ${{ github.ref_name }} \
-              --title "Auto PR from ${{ github.ref_name }} into main" \
-              --body "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml solving issue ${{ env.issue_number }}" \
-              --label "automated"
         env:
+          ISSUE_NUMBER: ${{ env.issue_number }}
+          BRANCH_NAME: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo -e "This is an automated pull request created by GitHub Actions Workflow of auto-pr.yml.\n\nSolving issue ${ISSUE_NUMBER}.\n\nBranch: ${BRANCH_NAME}" | \
+          gh pr create \
+            -B main \
+            -H $BRANCH_NAME \
+            --title "Auto PR from ${BRANCH_NAME} into main" \
+            --body-file - \
+            --label "automated"
                 
 # Multi line body
 # Reference issue number in body
+# Use variables
+# With another branch
