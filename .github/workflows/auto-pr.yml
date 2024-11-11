@@ -26,6 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_TITLE=$(git log -1 --pretty=%B)
+          echo "The branch was pushed by ${{ github.actor }}"
           echo -e "This is an automated pull request created by GitHub Actions Workflow defined in auto-pr.yml\n\nSolving issue #${ISSUE_NUMBER}\n\nSource Branch: ${SOURCE_BRANCH_NAME}\n\nTarget Branch: ${TARGET_BRANCH_NAME}" | \
           gh pr create \
             -B $TARGET_BRANCH_NAME \
