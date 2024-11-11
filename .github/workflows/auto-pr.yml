@@ -18,7 +18,16 @@ jobs:
           echo "issue_number=$issue_number" >> $GITHUB_ENV  # Set the issue number as an environment variable
           echo "Extracted issue number: $issue_number"
     
-      - name: create pull request
+      - name: Check if PR already exists
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Check if a PR already exists from the source branch to the target branch
+          PR_EXISTS=$(gh pr list --head "${{ github.ref_name }}" --base main --json number --jq '. | length')
+          echo "pr_exists=$PR_EXISTS" >> $GITHUB_ENV  # Set PR_EXISTS as an environment variable
+
+      - name: Create or update pull request
+        if: env.pr_exists == '0'  # Only run if no PR exists
         env:
           ISSUE_NUMBER: ${{ env.issue_number }}
           SOURCE_BRANCH_NAME: ${{ github.ref_name }}
@@ -34,3 +43,8 @@ jobs:
             --title "${PR_TITLE} (Auto PR)" \
             --body-file - \
             --label "automated"
+
+      - name: Add commit to existing PR
+        if: env.pr_exists != '0'  # Only run if a PR already exists
+        run: |
+          echo "A pull request already exists for this branch. Adding the new commit to the existing PR."
